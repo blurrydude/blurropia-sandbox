@@ -1,0 +1,107 @@
+<div class="row mb-3">
+  <div class="col-md-3">
+    Starting Tiles:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="start" />
+  </div>
+  <div class="col-md-3">
+    Scaling Passes:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="scaleUp" />
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-md-3">
+    Noise Percentage:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="noise" />
+  </div>
+  <div class="col-md-3">
+    Noise Passes:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="noisePass" />
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-md-3">
+    Pixel Scale:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="scale" />
+  </div>
+  <div class="col-md-3">
+    Water Threshold:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="water" />
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-md-3">
+    Mountain Threshold:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="mountain" />
+  </div>
+  <div class="col-md-3">
+    Snow Threshold:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="snow" />
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-md-3">
+    Beach Threshold:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="beach" />
+  </div>
+  <div class="col-md-3">
+    Foothill Threshold:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="foothill" />
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-md-3">
+    Deep Water Threshold:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="deepwater" />
+  </div>
+  <div class="col-md-3">
+    Texture Noise:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="textureNoise" />
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-md-3">
+    Edge Softening Passes:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="edgeSofteningPass" />
+  </div>
+  <div class="col-md-3">
+    Tile Softening Passes:
+  </div>
+  <div class="col-md-3">
+    <input type="number" [(ngModel)]="tileSofteningPass" />
+  </div>
+</div>
+<div class="row mb-3">
+  <div class="col-md-9"></div>
+  <div class="col-md-3">
+    <button (click)="loadPolygons()">Generate Map</button>
+  </div>
+</div>
+<div class="row">
+  <canvas #canvas (click)="clicked($event)" style="border:2px solid black"></canvas>
+</div>
