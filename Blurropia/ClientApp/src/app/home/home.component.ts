@@ -31,6 +31,9 @@ export class HomeComponent implements OnInit {
   @Output() @Input() tileSofteningPass!: number;
   @Output() @Input() edgeSofteningPass!: number;
   @Output() dataURL!: string;
+  private coords!: string;
+  private coordsx!: number;
+  private coordsy!: number;
 
   getRandomInt(exclusiveMax: number): number {
     return Math.floor(Math.random() * exclusiveMax);
@@ -164,7 +167,19 @@ export class HomeComponent implements OnInit {
           [tx + this.scale, ty],
           [tx + this.scale, ty + this.scale],
           [tx, ty + this.scale],
-        ], color, (e: MouseEvent) => { }));
+        ], color, (e: MouseEvent) => {
+            this.coords = x + ',' + y;
+            let w = this.ctx.measureText(this.coords).width;
+            this.coordsx = e.offsetX - Math.round(w / 2);
+            this.coordsy = e.offsetY - 12;
+            if (this.coordsx + w > this.width) {
+              this.coordsx = this.coordsx - w;
+            }
+            if (this.coordsy + 12> this.height) {
+              this.coordsy = this.coordsy - 12;
+            }
+          console.log(x + ',' + y);
+        }));
       }
     }
     this.width = this.tiles.length * this.scale;
@@ -250,10 +265,14 @@ export class HomeComponent implements OnInit {
 
   draw(): void {
     this.ctx.clearRect(0, 0, this.width, this.height);
+    this.ctx.font = '16 px "Open Sans",Arial,Helvetica,sans-serif';
+    
 
     for (var i = 0; i < this.polygons.length; i++) {
       this.polygons[i].draw();
     }
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillText(this.coords, this.coordsx, this.coordsy)
     this.dataURL = this.canvas.nativeElement.toDataURL();
     //setTimeout(this.draw, 200);
   }
