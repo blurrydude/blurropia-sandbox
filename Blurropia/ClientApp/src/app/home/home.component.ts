@@ -167,19 +167,7 @@ export class HomeComponent implements OnInit {
           [tx + this.scale, ty],
           [tx + this.scale, ty + this.scale],
           [tx, ty + this.scale],
-        ], color, (e: MouseEvent) => {
-            this.coords = x + ',' + y;
-            let w = this.ctx.measureText(this.coords).width;
-            this.coordsx = e.offsetX - Math.round(w / 2);
-            this.coordsy = e.offsetY - 12;
-            if (this.coordsx + w > this.width) {
-              this.coordsx = this.coordsx - w;
-            }
-            if (this.coordsy + 12> this.height) {
-              this.coordsy = this.coordsy - 12;
-            }
-          console.log(x + ',' + y);
-        }));
+        ], color, (e: MouseEvent) => {}));
       }
     }
     this.width = this.tiles.length * this.scale;
@@ -243,10 +231,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.start = 4;
-    this.scaleUp = 8;
+    this.scaleUp = 5;
     this.noise = 10;
-    this.noisePass = 5;
-    this.scale = 1;
+    this.noisePass = 2;
+    this.scale = 16;
     this.water = 96;
     this.mountain = 195;
     this.snow = 245;
@@ -255,7 +243,7 @@ export class HomeComponent implements OnInit {
     this.deepwater = 32;
     this.textureNoise = 6;
     this.edgeSofteningPass = 1;
-    this.tileSofteningPass = 3;
+    this.tileSofteningPass = 2;
     let ctx1 = this.canvas.nativeElement.getContext('2d');
     if (ctx1) {
       this.ctx = ctx1;
@@ -265,9 +253,8 @@ export class HomeComponent implements OnInit {
 
   draw(): void {
     this.ctx.clearRect(0, 0, this.width, this.height);
-    this.ctx.font = '16 px "Open Sans",Arial,Helvetica,sans-serif';
+    this.ctx.font = '16px "Open Sans",Arial,Helvetica,sans-serif';
     
-
     for (var i = 0; i < this.polygons.length; i++) {
       this.polygons[i].draw();
     }
@@ -278,12 +265,25 @@ export class HomeComponent implements OnInit {
   }
 
   clicked(e: MouseEvent): void {
-    for (var i = 0; i < this.polygons.length; i++) {
+    /*for (var i = 0; i < this.polygons.length; i++) {
       let check = this.polygons[i].inside(e.offsetX, e.offsetY);
       if (check === true) {
         this.polygons[i].click(e);
       }
+    }*/
+    let x = Math.round(e.offsetX / this.scale);
+    let y = Math.round(e.offsetY / this.scale);
+    this.coords = x + ',' + y;
+    let w = this.ctx.measureText(this.coords).width;
+    this.coordsx = e.offsetX - Math.round(w / 2);
+    this.coordsy = e.offsetY - 12;
+    if (this.coordsx + w > this.width) {
+      this.coordsx = this.coordsx - w;
     }
+    if (this.coordsy + 12 > this.height) {
+      this.coordsy = this.coordsy - 12;
+    }
+
     this.draw();
   }
 }
